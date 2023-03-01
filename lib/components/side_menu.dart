@@ -6,7 +6,9 @@ import 'package:rive_animation/models/rive_asset.dart';
 import 'package:rive_animation/utils/rive_utils.dart';
 
 class SideMenu extends StatefulWidget {
-  const SideMenu({super.key});
+  const SideMenu({super.key, required this.onTap});
+
+  final Function(String) onTap;
 
   @override
   State<SideMenu> createState() => _SideMenuState();
@@ -48,6 +50,7 @@ class _SideMenuState extends State<SideMenu> {
                     menu.input = controller.findSMI('active') as SMIBool;
                   },
                   press: () {
+                    widget.onTap(menu.title);
                     menu.input!.change(true);
                     Future.delayed(const Duration(seconds: 1), () {
                       menu.input!.change(false);

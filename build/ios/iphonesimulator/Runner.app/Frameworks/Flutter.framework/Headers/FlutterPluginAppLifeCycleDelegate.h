@@ -13,7 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
  * Propagates `UIAppDelegate` callbacks to registered plugins.
  */
 FLUTTER_DARWIN_EXPORT
-@interface FlutterPluginAppLifeCycleDelegate : NSObject <UNUserNotificationCenterDelegate>
+@interface FlutterPluginAppLifeCycleDelegate : NSObject
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
+                                               <UNUserNotificationCenterDelegate>
+#endif
 
 /**
  * Registers `delegate` to receive life cycle callbacks via this FlutterPluginAppLifecycleDelegate

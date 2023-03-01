@@ -22,8 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Protocol for listener of events from the UIApplication, typically a FlutterPlugin.
  */
-@protocol FlutterApplicationLifeCycleDelegate <UNUserNotificationCenterDelegate>
-
+@protocol FlutterApplicationLifeCycleDelegate
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
+    <UNUserNotificationCenterDelegate>
+#endif
 @optional
 /**
  * Called if this has been registered for `UIApplicationDelegate` callbacks.
@@ -430,7 +432,10 @@ typedef enum {
  * For plugins to receive events from `UNUserNotificationCenter`, register this as the
  * `UNUserNotificationCenterDelegate`.
  */
-@protocol FlutterAppLifeCycleProvider <UNUserNotificationCenterDelegate>
+@protocol FlutterAppLifeCycleProvider
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
+    <UNUserNotificationCenterDelegate>
+#endif
 
 /**
  * Called when registering a new `FlutterApplicaitonLifeCycleDelegate`.

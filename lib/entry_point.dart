@@ -6,6 +6,7 @@ import 'package:rive_animation/components/animated_bar.dart';
 import 'package:rive_animation/components/side_menu.dart';
 import 'package:rive_animation/models/menu_button.dart';
 import 'package:rive_animation/models/rive_asset.dart';
+import 'package:rive_animation/screens/flutter_animate/flutter_animate_screen.dart';
 import 'package:rive_animation/screens/home/home_screen.dart';
 import 'package:rive_animation/utils/rive_utils.dart';
 
@@ -27,6 +28,7 @@ class _EntryPointState extends State<EntryPoint>
   late SMIBool isSideBarClosed;
 
   bool isSideMenuClosed = true;
+  var sideMenu = '';
 
   @override
   void initState() {
@@ -67,7 +69,13 @@ class _EntryPointState extends State<EntryPoint>
             width: 288,
             left: isSideMenuClosed ? -288 : 0,
             height: MediaQuery.of(context).size.height,
-            child: const SideMenu(),
+            child: SideMenu(
+              onTap: (value) {
+                setState(() {
+                  sideMenu = value;
+                });
+              },
+            ),
           ),
           Transform(
             alignment: Alignment.center,
@@ -78,11 +86,13 @@ class _EntryPointState extends State<EntryPoint>
               offset: Offset(animation.value * 265, 0),
               child: Transform.scale(
                   scale: scaleAnimation.value,
-                  child: const ClipRRect(
-                      borderRadius: BorderRadius.all(
+                  child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
                         Radius.circular(30),
                       ),
-                      child: HomeScreen())),
+                      child: sideMenu == 'Search'
+                          ? const FlutterAnimateScreen()
+                          : const HomeScreen())),
             ),
           ),
           AnimatedPositioned(
